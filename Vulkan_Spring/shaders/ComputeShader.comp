@@ -29,14 +29,11 @@ layout(local_size_x = 16, local_size_y = 16, local_size_z = 1) in;
 
 // 시뮬레이션 상수
 const float springRestLength = 0.1;
-const float springStiffness = 500.0;
-const float damping = 0.995;
-const vec3 gravity = vec3(0.0, -1.2, 0.0);
+const float springStiffness = 2500.0;
+const float damping = 0.98;
+const vec3 gravity = vec3(0.0, -9.8, 0.0);
 const int WIDTH = 16;
 const int HEIGHT = 16;
-
-float windStrength = 2.0; 
-float frequency = 0.5; // 흔들리는 속도
 
 void main() {
     uint x = gl_GlobalInvocationID.x;
@@ -56,10 +53,6 @@ void main() {
     vec3 pos = current.pos.xyz;
     vec3 prevPos = current.prevPos.xyz;
 
-    //vec3 wind = vec3(0.0, 0.0, sin(u_Time * frequency) * windStrength);
-    //vec3 wind = vec3(0.0, 0.0, windStrength);
-
-    //vec3 force = gravity + wind; // 중력 적용
     vec3 force = gravity; // 중력 적용
 
     // --- 스프링 힘 계산 (인접한 8개 노드 탐색) ---
